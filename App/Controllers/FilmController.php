@@ -6,90 +6,93 @@ use App\Models\Film;
 
 class FilmController
 {
-    //funcio index
     public function index()
     {
-        //obtenim totes les pelis
         $films = Film::getAll();
-
-        //pasem les pelis a la vista
         return view('films/index', ['films' => $films]);
     }
 
-    //funcio per anar a la vista create
     public function create()
     {
         return view('films/create');
     }
 
-    //funcio per guardar les dades i tornar a la vista principal
-    public function store($data)
+    public function store()
     {
-        //cridem funcio create del model
+        $data = [
+            'titol' => $_POST['titol'],
+            'director' => $_POST['director'],
+            'any_estrena' => $_POST['any_estrena'],
+            'duracio' => $_POST['duracio'],
+            'sinopsi' => $_POST['sinopsi'],
+            'genere' => $_POST['genere']
+        ];
+
+        // Validate data
+        if (!$this->validate($data)) {
+            throw new \InvalidArgumentException('Invalid data provided');
+        }
+
         Film::create($data);
-        //retornar a la vista principal
-        header('location: /');
+        header('Location: /films');
         exit;
     }
 
-   //funcio per a la vista edit
     public function edit($id)
     {
-        //si no ens passen la id fem redirect
-        if ($id === null) {
-            header('location: /');
-            exit;
-        }
-
-        //busquem la peli
         $film = Film::find($id);
-
-        //si no ens passen cap peli mostrar 404
         if (!$film) {
-            require '../../resources/views/errors/404.blade.php';
+            require 'resources/views/errors/404.blade.php';
             return;
         }
-
-        //retornem la vista i li passem la peli indicada
         return view('films/edit', ['film' => $film]);
     }
 
-    //funcio update per a modificar la peli a la base de dades
-    public function update($id, $data)
+    public function update($id)
     {
-        //modifiquem
-        Film::update($id, $data);
+        $data = [
+            'titol' => $_POST['titol'],
+            'director' => $_POST['director'],
+            'any_estrena' => $_POST['any_estrena'],
+            'duracio' => $_POST['duracio'],
+            'sinopsi' => $_POST['sinopsi'],
+            'genere' => $_POST['genere']
+        ];
 
-        //retonem a la pàgina principal
-        header('location: /');
+        // Validate data
+        if (!$this->validate($data)) {
+            throw new \InvalidArgumentException('Invalid data provided');
+        }
+
+        Film::update($id, $data);
+        header('Location: /films');
         exit;
     }
 
-    //funcio per anar a la vista delete
     public function delete($id)
     {
-        //si no ens passen la id fem redirect
-        if ($id === null) {
-            header('location: /');
-            exit;
-        }
-
-        //busquem la peli
         $film = Film::find($id);
-        //retornem la vista en la peli
+        if (!$film) {
+            require 'resources/views/errors/404.blade.php';
+            return;
+        }
         return view('films/delete', ['film' => $film]);
-
     }
 
-    //funcio per eliminar la peli de la base de dades
     public function destroy($id)
     {
-        //utilizem la funcio delete del model
-        Film::delete($id);
+        if (!$id) {
+            throw new \RuntimeException('No id provided');
+        }
 
-        //retornar a la vista
-        header('location: /');
+        Film::delete($id);
+        header('Location: /films');
+        exit();
     }
 
-
+    private function validate($data)
+    {
+        // Add your validation logic here
+        return isset($data['titol'], $data['director'], $data['any_estrena'], $data['duracio'], $data['sinopsi'], $data['genere']);
+    }
 }

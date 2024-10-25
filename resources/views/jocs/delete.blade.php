@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>No s'ha trobat la pàgina</title>
+    <title>Delete Joc</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
         body {
@@ -31,7 +31,7 @@
         }
         footer a:hover {
             color: #f7fafc;
-        }
+        }º
     </style>
 </head>
 <body>
@@ -42,17 +42,22 @@
         <a href="/" class="text-2xl font-bold">Project Landing Page</a>
         <div class="space-x-4">
             <a href="/" class="text-white hover:text-gray-400">Inici</a>
-            <a href="/films" class="text-white hover:text-gray-400">Pel·lícules</a>
+            <a href="/films" class="text-white hover:text-gray-400">Pelicules</a>
             <a href="/jocs" class="text-white hover:text-gray-400">Jocs</a>
         </div>
     </nav>
 </header>
 
 <!-- Main Content -->
-<div class="max-w-lg mx-auto bg-white shadow-md rounded-lg p-6 my-8 text-center">
-    <h1 class="text-3xl font-bold mb-4">No s'ha trobat la pàgina</h1>
-    <p>La pàgina que busques no existeix.</p>
-    <a href="/" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 mt-4 inline-block">Tornar a la pàgina principal</a>
+<div class="max-w-md mx-auto bg-white shadow-md rounded-lg p-6 my-8">
+    <h1 class="text-2xl font-bold mb-4">Delete Joc</h1>
+    <p>Estas segur que vols borrar el joc "<?= htmlspecialchars($joc->titol) ?>"?</p>
+    <p class="text-red-500 text-sm mt-2">Aquesta acció no es pot desfer.</p>
+
+    <form action="/jocs/destroy/<?= htmlspecialchars($joc->id) ?>" method="POST">
+        <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700">Si, borrar</button>
+        <a href="/jocs" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-700 ml-4">Cancela</a>
+    </form>
 </div>
 
 <!-- Footer -->

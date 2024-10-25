@@ -1,12 +1,10 @@
 <?php
-//Fitxer per crear la connexió a la base de dades
 namespace Core\Database;
 
-use PDO; //importem classe PDO per interactuar en les bases de dades
+use PDO;
 
 class Connection
 {
-    //creem instancia de la classe PDO per establir la connexió a la base de dades
     public static function make($config)
     {
         try {

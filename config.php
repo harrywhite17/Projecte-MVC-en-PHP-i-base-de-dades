@@ -1,11 +1,18 @@
 <?php
-//fitxer credencials base dades utilitzem environment per posar les credencials
+
+$databaseType = getenv('DB_CONNECTION') ?: 'mysql';
+$host = getenv('DB_HOST') ?: '127.0.0.1';
+$name = getenv('DB_DATABASE') ?: 'phpTinkering';
+$user = getenv('DB_USERNAME') ?: 'root';
+$password = getenv('DB_PASSWORD') ?: 'alumne';
+
+// Return the configuration array
 return [
-  'database' => [
-      'user' => $_ENV['DB_USERNAME'],
-      'password' => $_ENV['DB_PASSWORD'],
-      'databasetype' => $_ENV['DB_CONNECTION'],
-      'host' => $_ENV['DB_HOST'],
-      'name' => $_ENV['DB_DATABASE'],
-  ]
+    'database' => [
+        'databasetype' => $databaseType,
+        'host' => $host,
+        'name' => $name,
+        'user' => $user,
+        'password' => $password,
+    ]
 ];

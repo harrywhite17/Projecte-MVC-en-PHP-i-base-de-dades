@@ -8,7 +8,7 @@ class Film
 {
     protected static $table = 'films';
 
-    //funcio per a que torne totes les pelis
+    // Function to return all films
     public static function getAll()
     {
         $db = App::get('database');
@@ -17,45 +17,59 @@ class Film
         return $statement->fetchAll();
     }
 
-    //funcio per a buscar una peli
+    // Function to find a film by ID
     public static function find($id)
     {
         $db = App::get('database')->getConnection();
         $statement = $db->prepare('SELECT * FROM ' . self::$table . ' WHERE id = :id');
-        $statement->execute(array('id' => $id));
+        $statement->execute(['id' => $id]);
         return $statement->fetch(\PDO::FETCH_OBJ);
     }
 
-    //funcio create
+    // Function to create a new film
     public static function create($data)
     {
         $db = App::get('database')->getConnection();
-        $statement = $db->prepare('INSERT INTO '. static::$table . "(name, director, year) VALUES (:name, :director, :year)");
-        $statement->bindValue(':name', $data['name']);
+        $statement = $db->prepare('INSERT INTO ' . static::$table . " (titol, director, any_estrena, duracio, sinopsi, genere, data_afegida) VALUES (:titol, :director, :any_estrena, :duracio, :sinopsi, :genere, :data_afegida)");
+
+        // Ensure the date is in the correct format
+        $data['any_estrena'] = date('Y', strtotime($data['any_estrena']));
+
+        $statement->bindValue(':titol', $data['titol']);
         $statement->bindValue(':director', $data['director']);
-        $statement->bindValue(':year', $data['year']);
+        $statement->bindValue(':any_estrena', $data['any_estrena']);
+        $statement->bindValue(':duracio', $data['duracio']);
+        $statement->bindValue(':sinopsi', $data['sinopsi']);
+        $statement->bindValue(':genere', $data['genere']);
+        $statement->bindValue(':data_afegida', $data['data_afegida']);
         $statement->execute();
     }
 
-    //funcio update
+    // Function to update a film
     public static function update($id, $data)
     {
         $db = App::get('database')->getConnection();
-        $statement = $db->prepare("UPDATE ". static::$table . " SET name = :name, director = :director, year = :year WHERE id = :id");
+        $statement = $db->prepare("UPDATE " . static::$table . " SET titol = :titol, director = :director, any_estrena = :any_estrena, duracio = :duracio, sinopsi = :sinopsi, genere = :genere WHERE id = :id");
+
+        // Ensure the date is in the correct format
+        $data['any_estrena'] = date('Y', strtotime($data['any_estrena']));
+
         $statement->bindValue(':id', $id);
-        $statement->bindValue(':name', $data['name']);
+        $statement->bindValue(':titol', $data['titol']);
         $statement->bindValue(':director', $data['director']);
-        $statement->bindValue(':year', $data['year']);
+        $statement->bindValue(':any_estrena', $data['any_estrena']);
+        $statement->bindValue(':duracio', $data['duracio']);
+        $statement->bindValue(':sinopsi', $data['sinopsi']);
+        $statement->bindValue(':genere', $data['genere']);
         $statement->execute();
     }
 
-    //funcio delete
+    // Function to delete a film
     public static function delete($id)
     {
         $db = App::get('database')->getConnection();
-        $statement = $db->prepare('DELETE FROM '. static::$table . ' WHERE id = :id');
+        $statement = $db->prepare('DELETE FROM ' . static::$table . ' WHERE id = :id');
         $statement->bindValue(':id', $id);
         $statement->execute();
     }
-
 }

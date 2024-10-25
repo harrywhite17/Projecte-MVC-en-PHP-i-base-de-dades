@@ -1,27 +1,32 @@
 <?php
-//bootstrap es responsable de configurar i inicialitzar l'entorn de l'aplicació.
-//carregar les configuracions, inicialitzar dependències com la base de dades i el router
+require_once '../config.php'; // Adjust the path to include config.php correctly
 
-use Dotenv\Dotenv; //carregar les variables d'entorn
-use Core\App; //importar contenidor de dependències
-use Core\Database\Connection; //importem la classe connection per fer la connexió
-use Core\Database\Database; //importem database per fer les operacions
-use Core\Route; //carregar la gestió per a l'enrutament
+try {
+    $config = require '../config.php'; // Load the config values
 
-//carregarem les rutes
-$routes = require '../routes.php';
+    // Create the PDO connection
+    $pdo = new PDO(
+        'mysql:host=' . $config['database']['host'] . ';dbname=' . $config['database']['name'],
+        $config['database']['user'],
+        $config['database']['password']
+    );
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-//carreguem les variables d'entorn de forma immutable
-$dotenv = Dotenv::createImmutable(__DIR__.'/..');
-$dotenv->load(); //carreguem variables
+    // Check if the connection is valid
+    if (!$pdo) {
+        throw new Exception('Failed to establish a database connection.');
+    }
 
-//enllacem l'arxiu config al contenidor com a config on tenim les variables d'entorn
-App::bind('config', require '../config.php');
+    // Pass the PDO instance to the Database class constructor
+    $database = new Core\Database\Database($pdo);
+    Core\App::bind('database', $database);
 
-//enllacem la instancia database
-App::bind('database', new Database(
-    Connection::make(App::get('config')['database'])
-));
+    // Instantiate the Route and bind it to the App container
+    $route = new Core\Route(); // Ensure this is the correct namespace for your Route class
+    Core\App::bind('route', $route);
 
-//enllacem la instancia rutes
-App::bind('router', (new Route())->define($routes));
+} catch (PDOException $e) {
+    die('Connection error: ' . $e->getMessage());
+} catch (Exception $e) {
+    die('Error: ' . $e->getMessage());
+}
