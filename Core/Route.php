@@ -1,8 +1,6 @@
 <?php
 namespace Core;
 
-use RuntimeException;
-
 class Route
 {
     protected $routes = [];
@@ -62,12 +60,21 @@ class Route
             require "../{$controllerPath}.php";
             $controllerInstance = new $controller();
 
-            if (in_array($action, ['store', 'update', 'destroy']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
-                $data = $_POST;
-                if ($action !== 'store' && !isset($parts[2])) {
-                    throw new RuntimeException('No id provided');
+            // Ensure ID is present for update and destroy actions
+            if (in_array($action, ['update', 'destroy']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
+                if (!isset($parts[2])) {
+                    // Redirect back to the films index if ID is missing
+                    header('Location: /films');
+                    exit;
                 }
-                return $controllerInstance->$action(isset($parts[2]) ? $parts[2] : null, $data);
+                $data = $_POST;
+                return $controllerInstance->$action($parts[2], $data);
+            }
+
+            // Handle store action separately
+            if ($action === 'store' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+                $data = $_POST;
+                return $controllerInstance->$action($data);
             }
 
             if (in_array($action, ['create', 'edit', 'delete']) && $_SERVER['REQUEST_METHOD'] === 'GET') {

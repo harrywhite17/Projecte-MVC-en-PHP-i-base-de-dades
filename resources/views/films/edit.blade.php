@@ -49,7 +49,7 @@
 
 <div class="max-w-lg mx-auto bg-white shadow-md rounded-lg p-6 my-8">
     <h1 class="text-3xl font-bold mb-4">Edita Pel·lícula</h1>
-    <form action="/films/update" method="POST">
+    <form action="/films/update/<?= htmlspecialchars($film->id) ?>" method="POST">
         <input type="hidden" name="id" value="<?= htmlspecialchars($film->id) ?>" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
         <div class="mb-4">
             <label for="titol" class="block text-sm font-medium text-gray-700">Títol:</label>
@@ -61,7 +61,11 @@
         </div>
         <div class="mb-4">
             <label for="any_estrena" class="block text-sm font-medium text-gray-700">Any d'Estrena:</label>
-            <input type="date" name="any_estrena" value="<?= htmlspecialchars($film->any_estrena) ?>" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
+            <input type="date" name="any_estrena" value="<?= htmlspecialchars(date('Y-m-d', strtotime($film->any_estrena))) ?>" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
+        </div>
+        <div class="mb-4">
+            <label for="data_afegida" class="block text-sm font-medium text-gray-700">Data Afegida:</label>
+            <input type="date" name="data_afegida" value="<?= htmlspecialchars(date('Y-m-d', strtotime($film->data_afegida))) ?>" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
         </div>
         <div class="mb-4">
             <label for="duracio" class="block text-sm font-medium text-gray-700">Duració:</label>

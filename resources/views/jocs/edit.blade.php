@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="ca">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Joc</title>
+    <title>Edita Joc</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
         body {
@@ -36,10 +36,9 @@
 </head>
 <body>
 
-<!-- Header/Navbar -->
 <header class="p-4">
     <nav class="max-w-5xl mx-auto flex justify-between items-center">
-        <a href="/" class="text-2xl font-bold">Project Landing Page</a>
+        <a href="/" class="text-2xl font-bold">Projecte Landing Page</a>
         <div class="space-x-4">
             <a href="/" class="text-white hover:text-gray-400">Inici</a>
             <a href="/films" class="text-white hover:text-gray-400">Pel·lícules</a>
@@ -48,42 +47,39 @@
     </nav>
 </header>
 
-<!-- Main Content -->
 <div class="max-w-lg mx-auto bg-white shadow-md rounded-lg p-6 my-8">
-    <h1 class="text-3xl font-bold mb-4">Edit Joc</h1>
+    <h1 class="text-3xl font-bold mb-4">Edita Joc</h1>
     <form action="/jocs/update/<?= htmlspecialchars($joc->id) ?>" method="POST">
         <input type="hidden" name="id" value="<?= htmlspecialchars($joc->id) ?>" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
-
         <div class="mb-4">
-            <label for="titol" class="block text-sm font-medium text-gray-700">Title:</label>
+            <label for="titol" class="block text-sm font-medium text-gray-700">Títol:</label>
             <input type="text" name="titol" value="<?= htmlspecialchars($joc->titol) ?>" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
         </div>
         <div class="mb-4">
-            <label for="plataforma" class="block text-sm font-medium text-gray-700">Platform:</label>
+            <label for="plataforma" class="block text-sm font-medium text-gray-700">Plataforma:</label>
             <input type="text" name="plataforma" value="<?= htmlspecialchars($joc->plataforma) ?>" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
         </div>
         <div class="mb-4">
-            <label for="any_lanzament" class="block text-sm font-medium text-gray-700">Release Year:</label>
-            <input type="date" name="any_lanzament" value="<?= htmlspecialchars($joc->any_lanzament) ?>" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
+            <label for="any_lanzament" class="block text-sm font-medium text-gray-700">Any de Lançament:</label>
+            <input type="date" name="any_lanzament" value="<?= htmlspecialchars(date('Y-m-d', strtotime($joc->any_lanzament))) ?>" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
         </div>
         <div class="mb-4">
-            <label for="genere" class="block text-sm font-medium text-gray-700">Genre:</label>
+            <label for="genere" class="block text-sm font-medium text-gray-700">Gènere:</label>
             <input type="text" name="genere" value="<?= htmlspecialchars($joc->genere) ?>" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
         </div>
         <div class="mb-4">
-            <label for="data_afegida" class="block text-sm font-medium text-gray-700">Added Date:</label>
-            <input type="date" name="data_afegida" value="<?= htmlspecialchars($joc->data_afegida) ?>" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
+            <label for="data_afegida" class="block text-sm font-medium text-gray-700">Data Afegida:</label>
+            <input type="date" name="data_afegida" value="<?= htmlspecialchars(date('Y-m-d', strtotime($joc->data_afegida))) ?>" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
         </div>
         <div class="mb-4">
-            <label for="valoracio" class="block text-sm font-medium text-gray-700">Rating:</label>
+            <label for="valoracio" class="block text-sm font-medium text-gray-700">Valoració:</label>
             <input type="number" name="valoracio" value="<?= htmlspecialchars($joc->valoracio) ?>" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
         </div>
-        <button type="submit" class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Edit</button>
+        <button type="submit" class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Edita</button>
     </form>
-    <a href="/jocs" class="text-gray-500 hover:underline mt-4 block">Return</a>
+    <a href="/jocs" class="text-gray-500 hover:underline mt-4 block">Torna</a>
 </div>
 
-<!-- Footer -->
 <footer class="p-4">
     <div class="max-w-5xl mx-auto text-center">
         <p>&copy; 2024 Creat per <span class="font-bold">Harry White</span>. Tots els drets reservats.</p>

@@ -56,10 +56,10 @@ class FilmController
             'any_estrena' => $_POST['any_estrena'],
             'duracio' => $_POST['duracio'],
             'sinopsi' => $_POST['sinopsi'],
-            'genere' => $_POST['genere']
+            'genere' => $_POST['genere'],
+            'data_afegida' => $_POST['data_afegida']
         ];
 
-        // Validate data
         if (!$this->validate($data)) {
             throw new \InvalidArgumentException('Invalid data provided');
         }
