@@ -38,23 +38,25 @@
 
 <!-- Header/Navbar -->
 <header class="p-4">
-    <nav class="max-w-5xl mx-auto flex justify-between items-center">
-        <a href="/" class="text-2xl font-bold">Project Landing Page</a>
-        <div class="space-x-4">
-            <a href="/" class="text-white hover:text-gray-400">Inici</a>
-            <a href="/films" class="text-white hover:text-gray-400">Pel·lícules</a>
-            <a href="/jocs" class="text-white hover:text-gray-400">Jocs</a>
+    <nav class="max-w-5xl mx-auto">
+        <h1 class="text-2xl font-bold text-center mb-2">La meva pàgina de projecte</h1>
+        <div class="flex justify-center items-center">
+            <div class="space-x-4">
+                <a href="/" class="text-white hover:text-gray-400">Inici</a>
+                <a href="/films" class="text-white hover:text-gray-400">Pel·lícules</a>
+                <a href="/jocs" class="text-white hover:text-gray-400">Jocs</a>
+            </div>
         </div>
     </nav>
 </header>
 
 <!-- Main Content -->
 <div class="max-w-md mx-auto bg-white shadow-md rounded-lg p-6 my-8">
-    <h1 class="text-2xl font-bold mb-4">Borrar pelicules</h1>
+    <h1 class="text-2xl font-bold mb-4">Borra pelicula</h1>
     <p>Estas segur que vols borrar la pelicula "<?= htmlspecialchars($film->titol) ?>"?</p>
     <p class="text-red-500 text-sm mt-2">Aquesta acció no es pot desfer.</p>
     <form action="/films/destroy/<?= htmlspecialchars($film->id) ?>" method="POST">
-        <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700">Si,borrar</button>
+        <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700">Si, borrar</button>
         <a href="/films" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-700 ml-4">Cancela</a>
     </form>
 </div>

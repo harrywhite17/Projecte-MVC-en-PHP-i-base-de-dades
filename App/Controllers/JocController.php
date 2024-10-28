@@ -28,6 +28,16 @@ class JocController
             'valoracio' => $_POST['valoracio']
         ];
 
+        // Log the data being passed
+        error_log('Store data: ' . print_r($data, true));
+
+        // Ensure the date fields are in the correct format
+        $data['any_lanzament'] = date('Y-m-d', strtotime($data['any_lanzament']));
+        $data['data_afegida'] = date('Y-m-d', strtotime($data['data_afegida']));
+
+        // Log the formatted data
+        error_log('Formatted data: ' . print_r($data, true));
+
         if (!$this->validate($data)) {
             throw new \InvalidArgumentException('Invalid data provided');
         }
@@ -58,6 +68,16 @@ class JocController
             'valoracio' => $_POST['valoracio']
         ];
 
+        // Log the data being passed
+        error_log('Update data: ' . print_r($data, true));
+
+        // Ensure the date fields are in the correct format
+        $data['any_lanzament'] = date('Y-m-d', strtotime($data['any_lanzament']));
+        $data['data_afegida'] = date('Y-m-d', strtotime($data['data_afegida']));
+
+        // Log the formatted data
+        error_log('Formatted data: ' . print_r($data, true));
+
         if (!$this->validate($data)) {
             throw new \InvalidArgumentException('Invalid data provided');
         }
@@ -65,6 +85,29 @@ class JocController
         Joc::update($id, $data);
         header('Location: /jocs');
         exit;
+    }
+
+    private function validate($data)
+    {
+        $isValid = isset($data['titol'], $data['plataforma'], $data['any_lanzament'], $data['genere'], $data['data_afegida'], $data['valoracio']) &&
+            is_numeric($data['valoracio']) && $data['valoracio'] >= 0 && $data['valoracio'] <= 10 &&
+            $this->validateDate($data['any_lanzament']) && $this->validateDate($data['data_afegida']);
+
+        // Log the validation result
+        error_log('Validation result: ' . ($isValid ? 'valid' : 'invalid'));
+
+        return $isValid;
+    }
+
+    private function validateDate($date, $format = 'Y-m-d')
+    {
+        $d = \DateTime::createFromFormat($format, $date);
+        $isValid = $d && $d->format($format) === $date;
+
+        // Log the date validation result
+        error_log('Date validation for ' . $date . ': ' . ($isValid ? 'valid' : 'invalid'));
+
+        return $isValid;
     }
 
     public function delete($id)
@@ -86,11 +129,5 @@ class JocController
         Joc::delete($id);
         header('Location: /jocs');
         exit();
-    }
-
-    private function validate($data)
-    {
-        return isset($data['titol'], $data['plataforma'], $data['any_lanzament'], $data['genere'], $data['data_afegida'], $data['valoracio']) &&
-            is_numeric($data['valoracio']) && $data['valoracio'] >= 0 && $data['valoracio'] <= 10;
     }
 }

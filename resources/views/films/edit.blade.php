@@ -37,8 +37,8 @@
 <body>
 
 <header class="p-4">
-    <nav class="max-w-5xl mx-auto flex justify-between items-center">
-        <a href="/" class="text-2xl font-bold">Projecte Landing Page</a>
+    <nav class="max-w-5xl mx-auto flex flex-col items-center">
+        <h1 class="text-2xl font-bold mb-2">Projecte Landing Page</h1>
         <div class="space-x-4">
             <a href="/" class="text-white hover:text-gray-400">Inici</a>
             <a href="/films" class="text-white hover:text-gray-400">Pel·lícules</a>

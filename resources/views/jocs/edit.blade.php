@@ -1,3 +1,5 @@
+<!-- resources/views/jocs/edit.blade.php -->
+
 <!DOCTYPE html>
 <html lang="ca">
 <head>
@@ -37,8 +39,8 @@
 <body>
 
 <header class="p-4">
-    <nav class="max-w-5xl mx-auto flex justify-between items-center">
-        <a href="/" class="text-2xl font-bold">Projecte Landing Page</a>
+    <nav class="max-w-5xl mx-auto flex flex-col items-center">
+        <h1 class="text-2xl font-bold mb-2">Projecte Landing Page</h1>
         <div class="space-x-4">
             <a href="/" class="text-white hover:text-gray-400">Inici</a>
             <a href="/films" class="text-white hover:text-gray-400">Pel·lícules</a>
@@ -52,28 +54,28 @@
     <form action="/jocs/update/<?= htmlspecialchars($joc->id) ?>" method="POST">
         <input type="hidden" name="id" value="<?= htmlspecialchars($joc->id) ?>" class="mt-1 block w-full border border-gray-300 rounded-md p-2">
         <div class="mb-4">
-            <label for="titol" class="block text-sm font-medium text-gray-700">Títol:</label>
+            <label for="titol" class="block text-sm font-medium text-gray-700">Introdueix el títol del joc:</label>
             <input type="text" name="titol" value="<?= htmlspecialchars($joc->titol) ?>" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
         </div>
         <div class="mb-4">
-            <label for="plataforma" class="block text-sm font-medium text-gray-700">Plataforma:</label>
+            <label for="plataforma" class="block text-sm font-medium text-gray-700">Introdueix la plataforma:</label>
             <input type="text" name="plataforma" value="<?= htmlspecialchars($joc->plataforma) ?>" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
         </div>
         <div class="mb-4">
-            <label for="any_lanzament" class="block text-sm font-medium text-gray-700">Any de Lançament:</label>
+            <label for="any_lanzament" class="block text-sm font-medium text-gray-700">Any de Llançament:</label>
             <input type="date" name="any_lanzament" value="<?= htmlspecialchars(date('Y-m-d', strtotime($joc->any_lanzament))) ?>" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
         </div>
         <div class="mb-4">
-            <label for="genere" class="block text-sm font-medium text-gray-700">Gènere:</label>
+            <label for="genere" class="block text-sm font-medium text-gray-700">Introdueix el gènere:</label>
             <input type="text" name="genere" value="<?= htmlspecialchars($joc->genere) ?>" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
         </div>
         <div class="mb-4">
-            <label for="data_afegida" class="block text-sm font-medium text-gray-700">Data Afegida:</label>
-            <input type="date" name="data_afegida" value="<?= htmlspecialchars(date('Y-m-d', strtotime($joc->data_afegida))) ?>" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
+            <label for="data_afegit" class="block text-sm font-medium text-gray-700">Data d'Afegit:</label>
+            <input type="date" name="data_afegit" value="<?= htmlspecialchars(date('Y-m-d', strtotime($joc->data_afegit))) ?>" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
         </div>
         <div class="mb-4">
             <label for="valoracio" class="block text-sm font-medium text-gray-700">Valoració:</label>
-            <input type="number" name="valoracio" value="<?= htmlspecialchars($joc->valoracio) ?>" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required>
+            <input type="number" name="valoracio" value="<?= htmlspecialchars($joc->valoracio) ?>" class="mt-1 block w-full border border-gray-300 rounded-md p-2" required min="0" max="10" step="0.1">
         </div>
         <button type="submit" class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Edita</button>
     </form>

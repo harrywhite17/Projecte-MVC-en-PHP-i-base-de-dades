@@ -36,19 +36,21 @@
 </head>
 <body>
 
-<!-- Capçalera/Navbar -->
+<!-- Header/Navbar -->
 <header class="p-4">
-    <nav class="max-w-5xl mx-auto flex justify-between items-center">
-        <a href="/" class="text-2xl font-bold">La meva pàgina de projecte</a>
-        <div class="space-x-4">
-            <a href="/" class="text-white hover:text-gray-400">Inici</a>
-            <a href="/films" class="text-white hover:text-gray-400">Pel·lícules</a>
-            <a href="/jocs" class="text-white hover:text-gray-400">Jocs</a>
+    <nav class="max-w-5xl mx-auto text-center">
+        <h1 class="text-2xl font-bold mb-2">La meva pàgina de projecte</h1>
+        <div class="flex justify-center items-center">
+            <div class="space-x-4">
+                <a href="/" class="text-white hover:text-gray-400">Inici</a>
+                <a href="/films" class="text-white hover:text-gray-400">Pel·lícules</a>
+                <a href="/jocs" class="text-white hover:text-gray-400">Jocs</a>
+            </div>
         </div>
     </nav>
 </header>
 
-<!-- Contingut Principal -->
+<!-- Main Content -->
 <div class="max-w-lg mx-auto bg-white shadow-md rounded-lg p-6 my-8">
     <h1 class="text-3xl font-bold mb-4">Afegir Joc Nou</h1>
     <form action="/jocs/store" method="POST">
@@ -74,14 +76,14 @@
         </div>
         <div class="mb-4">
             <label for="valoracio" class="block text-sm font-medium text-gray-700">Valoració:</label>
-            <input type="number" name="valoracio" required class="mt-1 block w-full border border-gray-300 rounded-md p-2" min="0" max="10" step="0.1" placeholder="Introdueix la valoració">
+            <input type="number" name="valoracio" required class="mt-1 block w-full border border-gray-300 rounded-md p-2" placeholder="Introdueix la valoració">
         </div>
         <button type="submit" class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Afegir Joc</button>
     </form>
     <a href="/jocs" class="text-gray-500 hover:underline mt-4 block">Tornar</a>
 </div>
 
-<!-- Peu de Pàgina -->
+<!-- Footer -->
 <footer class="p-4">
     <div class="max-w-5xl mx-auto text-center">
         <p>&copy; 2024 Creat per <span class="font-bold">Harry White</span>. Tots els drets reservats.</p>
